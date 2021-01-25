@@ -10,26 +10,116 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const managerArray = []
+const engineerArray = []
+const internArray = []
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+const buildManager = () => {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "nameManager",
+            message: "What is the name of the manager"
+        }, {
+            type: "input",
+            name: "idManager",
+            message: "What is the id of the manager",
+        }, {
+            type: "input",
+            name: "emailManager",
+            message: "What is the email of the manager"
+        }, {
+            type: "input",
+            name: "officeNumberManager",
+            message: "What is the office number of the manager"
+        }
+    ])
+        .then(({ nameManager, idManager, emailManager, officeNumberManager } = answers) => {
+            const manager = new Manager(nameManager, idManager, emailManager, officeNumberManager)
+            managerArray.push(manager)
+            buildTeam()
+        })
+}
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
+buildManager()
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
+const buildTeam = () => {
+    inquirer.prompt([
+        {
+          type: "list",
+          name: "teamMember",
+          message: "Who is your next member?",
+          choices: [
+            "Engineer",
+            "Intern",
+            "Finished"
+          ],
+          default: "Engineer"
+        }]).then((answer => {
+            if(answer.teamMember === "Engineer"){
+                buildEngineer()
+            } else if (answer.teamMember === "Intern"){
+                buildIntern()
+            } else {
+                managerTemplate(managerArray)
+                engineerTemplate(engineerArray)
+                internTemplate(internArray)
+            }
+        
+        }))
+    }
 
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
 
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+const buildEngineer = () => {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "nameEngineer",
+            message: "What is the name of the Engineer"
+        }, {
+            type: "input",
+            name: "idEngineer",
+            message: "What is the id of the Engineer",
+        }, {
+            type: "input",
+            name: "emailEngineer",
+            message: "What is the email of the Engineer"
+        }, {
+            type: "input",
+            name: "githubEngineer",
+            message: "What is the Github username of the Engineer"
+        }
+    ])
+        .then(({ nameEngineer, idEngineer, emailEngineer, githubEngineer } = answers) => {
+            const engineer = new Engineer(nameEngineer, idEngineer, emailEngineer, githubEngineer)
+            engineerArray.push(engineer)
+            buildTeam()
+        })
+}
+
+const buildIntern= () => {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "nameIntern",
+            message: "What is the name of the Intern"
+        }, {
+            type: "input",
+            name: "idIntern",
+            message: "What is the id of the Intern",
+        }, {
+            type: "input",
+            name: "emailIntern",
+            message: "What is the email of the Intern"
+        }, {
+            type: "input",
+            name: "schoolIntern",
+            message: "What is the School of the Intern"
+        }
+    ])
+        .then(({ nameIntern, idIntern, emailIntern, schoolIntern } = answers) => {
+            const intern = new Intern(nameIntern, idIntern, emailIntern, schoolIntern)
+            internArray.push(intern)
+            buildTeam()
+        })
+}
