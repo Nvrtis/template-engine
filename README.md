@@ -18,8 +18,7 @@
   ## Table of Content
   [-Installation](#Installation)  
   [-Description](#Description)    
-  [-Usage](#Usage)  
-  [-Contributors](#Contributors)  
+  [-Usage](#Usage)    
   [-Test](#Test)  
   [-Questions](#Questions)  
   
