@@ -4,6 +4,9 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+// const template = require("./templates/templet.js");
+
+
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -43,31 +46,6 @@ const buildManager = () => {
 
 buildManager()
 
-const buildTeam = () => {
-    inquirer.prompt([
-        {
-          type: "list",
-          name: "teamMember",
-          message: "Who is your next member?",
-          choices: [
-            "Engineer",
-            "Intern",
-            "Finished"
-          ],
-          default: "Engineer"
-        }]).then((answer => {
-            if(answer.teamMember === "Engineer"){
-                buildEngineer()
-            } else if (answer.teamMember === "Intern"){
-                buildIntern()
-            } else {
-                managerTemplate(managerArray)
-                engineerTemplate(engineerArray)
-                internTemplate(internArray)
-            }
-        
-        }))
-    }
 
 
 const buildEngineer = () => {
@@ -123,3 +101,33 @@ const buildIntern= () => {
             buildTeam()
         })
 }
+
+const buildTeam = () => {
+    inquirer.prompt([
+        {
+          type: "list",
+          name: "teamMember",
+          message: "Who is your next member?",
+          choices: [
+            "Engineer",
+            "Intern",
+            "Finished"
+          ],
+          default: "Engineer"
+        }]).then((answer => {
+            if(answer.teamMember === "Engineer"){
+                buildEngineer()
+            } else if (answer.teamMember === "Intern"){
+                buildIntern()
+            } else {
+
+                const array = managerArray.concat(engineerArray, internArray)
+                // managerTemplate(managerArray)
+                // engineerTemplate(engineerArray)
+                // internTemplate(internArray)
+                render(array)
+                    fs.writeFileSync(outputPath,render(array), "utf-8") 
+                        console.log('The file has been saved!');
+                      
+            }}))
+        }
