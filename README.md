@@ -8,7 +8,7 @@
   
 
 
-  ![Main page](./assets/img/template.png)
+  ![Main page](./Assets/img/template.png)
 
 
   [Link to webpage](https://github.com/Nvrtis/template-engine)
