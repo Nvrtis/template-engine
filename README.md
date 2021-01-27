@@ -8,7 +8,7 @@
   
 
 
-  ![Main page](./assets/img/template.png)
+  ![Main page](./Assets/img/template.png)
 
 
   [Link to webpage](https://github.com/Nvrtis/template-engine)
@@ -18,8 +18,7 @@
   ## Table of Content
   [-Installation](#Installation)  
   [-Description](#Description)    
-  [-Usage](#Usage)  
-  [-Contributors](#Contributors)  
+  [-Usage](#Usage)    
   [-Test](#Test)  
   [-Questions](#Questions)  
   
